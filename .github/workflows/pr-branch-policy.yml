@@ -13,13 +13,14 @@ jobs:
 
     steps:
       - name: Check PR source branch
-        if: github.head_ref != 'develop'
         run: |
-          echo "ERROR: Pull requests to master are only allowed from develop."
-          echo "Current source branch: ${{ github.head_ref }}"
-          exit 1
+          echo "Base branch: ${{ github.base_ref }}"
+          echo "Source branch: ${{ github.head_ref }}"
 
-      - name: Confirm valid PR source branch
-        if: github.head_ref == 'develop'
-        run: |
+          if [ "${{ github.head_ref }}" != "develop" ]; then
+            echo "ERROR: Pull requests to master are only allowed from develop."
+            echo "Current source branch: ${{ github.head_ref }}"
+            exit 1
+          fi
+
           echo "Branch policy check passed: develop -> master is allowed."
