@@ -156,4 +156,3 @@ A future branch is ready to merge when:
 - [ ] Commits use meaningful messages.
 - [ ] The README is updated when relevant.
 - [ ] The pull request checklist is satisfied.
-
