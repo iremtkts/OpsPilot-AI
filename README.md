@@ -61,9 +61,43 @@ The stack is planned rather than implemented and may evolve through documented a
 
 ## Development Status
 
-**Phase 0 — Architecture foundation**
+**Phase 1 — Backend foundation**
 
-This repository currently contains product, architecture, privacy, cloud, cost, and engineering workflow decisions. Application implementation will begin only after this foundation is reviewed and accepted.
+The repository now includes the initial FastAPI application factory, environment-based
+settings, structured logging, and system health endpoints. Database, RAG, LLM,
+agent, workflow, integration, and cloud runtime implementations remain future work.
+
+## Backend Foundation
+
+Synchronize the Python 3.12 environment:
+
+```bash
+uv sync
+```
+
+Run the development API:
+
+```bash
+uv run uvicorn app.main:app --reload
+```
+
+Available endpoints:
+
+- `GET /health` — application liveness
+- `GET /ready` — application readiness and dependency checks
+- `GET /version` — service version and environment
+
+Run tests:
+
+```bash
+uv run pytest
+```
+
+Run all quality checks:
+
+```bash
+make quality
+```
 
 ## Roadmap
 
@@ -77,8 +111,3 @@ This repository currently contains product, architecture, privacy, cloud, cost, 
 8. GitHub and Google Sheets integrations
 9. Controlled agent workflows and approval gates
 10. Observability, security hardening, cloud deployment, and internal dashboard
-
-
-
-
-
