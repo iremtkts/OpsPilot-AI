@@ -1,0 +1,26 @@
+name: PR Branch Policy
+
+on:
+  pull_request:
+    branches:
+      - master
+    types: [opened, edited, synchronize, reopened]
+
+jobs:
+  check-master-pr-source:
+    name: Ensure master only receives PRs from develop
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check PR source branch
+        run: |
+          echo "Base branch: ${{ github.base_ref }}"
+          echo "Source branch: ${{ github.head_ref }}"
+
+          if [ "${{ github.head_ref }}" != "develop" ]; then
+            echo "ERROR: Pull requests to master are only allowed from develop."
+            echo "Current source branch: ${{ github.head_ref }}"
+            exit 1
+          fi
+
+          echo "Branch policy check passed: develop -> master is allowed."
