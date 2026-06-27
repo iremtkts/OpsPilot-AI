@@ -41,3 +41,30 @@ jobs:
 
       - name: Run tests
         run: uv run pytest
+
+  docker-smoke-test:
+    name: Docker Smoke Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Validate Docker Compose configuration
+        run: docker compose config
+
+      - name: Build and start API container
+        run: docker compose up --build -d
+
+      - name: Check health endpoint
+        run: curl --fail --retry 10 --retry-connrefused --retry-delay 2 http://localhost:8000/health
+
+      - name: Check readiness endpoint
+        run: curl --fail --retry 10 --retry-connrefused --retry-delay 2 http://localhost:8000/ready
+
+      - name: Check version endpoint
+        run: curl --fail --retry 10 --retry-connrefused --retry-delay 2 http://localhost:8000/version
+
+      - name: Stop Docker Compose
+        if: always()
+        run: docker compose down
