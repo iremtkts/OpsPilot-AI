@@ -99,6 +99,22 @@ Run all quality checks:
 make quality
 ```
 
+## Docker Runtime
+
+Build and run the local API container:
+
+```bash
+docker compose up --build
+```
+
+Validate the running service:
+
+```bash
+curl http://localhost:8000/health
+curl http://localhost:8000/ready
+curl http://localhost:8000/version
+```
+
 ## Roadmap
 
 1. Architecture and product foundation
